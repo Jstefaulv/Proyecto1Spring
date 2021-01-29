@@ -1,0 +1,29 @@
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <title>Spring MVC y Thymeleaf</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Hola</h1>
+        <p th:text="${mensaje}"></p>
+        <p th:text="${variable}"></p>
+        <!-- en un jsp
+        <p>${mensaje}</p>
+        expression Language
+        
+        Thymelaf
+        <p th:text="${mensaje}"></p>
+        -->
+        <br/>
+        Nombre: <span th:text="${p.nombre}">Mostrar el nombre</span>
+         <br/>
+        Apellido: <span th:text="${p.apellido}">Mostrar el apellido</span>
+         <br/>
+        Email: <span th:text="${p.email}">Mostrar el email</span>
+         <br/>
+        Telefono: <span th:text="${p.telefono}">Mostrar el Telefono</span>
+        <br/>
+
+    </body>
+</html>
