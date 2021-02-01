@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import cl.duoc.Proyecto1.domain.Persona;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -52,10 +55,18 @@ public class ControladorInicio { //trabaja con tecnología de Servlets
          p.setEmail("jestefo@gmail.com");
          p.setTelefono("12345678");
          
-         modelo.addAttribute("p",p);
+         Persona p2 = new Persona();
+         p2.setNombre("Juan");
+         p2.setApellido("Perez");
+         p2.setEmail("jperez@gmail.com");
+         p2.setTelefono("4657468");
+         
+         List personas = Arrays.asList(p,p2);
+         //List personas= new ArrayList();
+         modelo.addAttribute("personas",personas);
+         
+         //modelo.addAttribute("p",p);
          
          return "index";
     }
-       
-    
 }
