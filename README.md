@@ -1,7 +1,7 @@
 <p align="center"><img src="http://www.formadoresit.es/wp-content/uploads/2018/07/spring_mvc_.png"></p>
 <p align="center">
 	<a href="https://spring.io/projects/spring-boot"><img src="https://cleventy.com/wp-content/uploads/2020/05/spring-boot.png" width="5%"></a>
-		<a href="https://www.thymeleaf.org/"><img src="https://cleventy.com/wp-content/uploads/2020/05/thymeleaf.jpg" width="8%"></a>
+		<a href="https://www.thymeleaf.org/"><img src="https://cleventy.com/wp-content/uploads/2020/05/thymeleaf.jpg" width="10%"></a>
 </p>
 
 # Proyecto Spring MVC
