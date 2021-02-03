@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import cl.duoc.Proyecto1.domain.Persona;
+import cl.duoc.Proyecto1.service.PersonaService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ControladorInicio { //trabaja con tecnología de Servlets
     
     @Autowired
-    private PersonaDAO personaDAO;
+    private PersonaService personaService;
     
     @GetMapping("/")
     public String inicio(Model modelo){
         
-        var personas = personaDAO.findAll();
+        var personas = personaService.listarPersonas();
         modelo.addAttribute("personas",personas);
          return "index";
     }
