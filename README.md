@@ -16,6 +16,6 @@ Sistema desarrollado en: <br/>
 
 ## Uso
 1. Clonar proyecto <br/>
-git clone https://github.com/Jstefaulv/Proyecto1Spring <br/>
+git clone https://github.com/Jstefaulv/Proyecto1Spring 
 
 2. Actualizar proyecto utilizando Maven
