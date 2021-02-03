@@ -9,8 +9,8 @@ Proyecto desarrollado en Java utilizando Spring MVC + Thymeleaf + Spring Data
 
 ## Desarrollado 
 Sistema desarrollado en: <br/>
-1. Java <br/>
-2. Mysql <br/>
+1. Java 
+2. Mysql 
 3. Spring boot
 4. Thymeleaf
 
