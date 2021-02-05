@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PersonaServiceImplementation implements PersonaService {
 
-    @Autowired
+    @Autowired //enlace - auto cableado
     private PersonaDAO personaDAO;
     
     @Override
