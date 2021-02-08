@@ -1,12 +1,15 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <!-- namespaces = libreria -->
     <head>
         <title>Spring MVC y Thymeleaf</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        
-        <a th:href="@{/agregar}">Crear Persona</a>
+        <header th:replace="layout/plantilla :: header"></header>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" 
+           th:href="@{/agregar}">Crear Persona</a>
         <div th:if="${personas !=null and !personas.empty}">
         <table border="1">
             <tr>
@@ -14,19 +17,19 @@
                 <th>Apellido</th>
                 <th>Email</th>
                 <th>Teléfono</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
             </tr>
             <tr th:each=" p: ${personas}">
                 <td th:text="${p.nombre}">Mostrar el nombre</td>
                 <td th:text="${p.apellido}">Mostrar el apellido</td>
                 <td th:text="${p.email}">Mostrar el email</td>
                 <td th:text="${p.telefono}">Mostrar el Telefono</td>
-                <td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/editar/} + ${p.idPersona}"
                        th:text="Editar"></a>
                 </td>
-                <td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/eliminar(idPersona=${p.idPersona})}">
                     Eliminar
                     </a>   
@@ -37,5 +40,6 @@
         <div th:if="${personas == null or personas.empty}">
             No hay personas registradas.
         </div>
+        <footer th:replace="layout/plantilla :: footer"></footer>
     </body>
 </html>
