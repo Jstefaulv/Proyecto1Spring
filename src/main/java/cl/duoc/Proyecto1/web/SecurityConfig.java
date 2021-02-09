@@ -24,11 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .password("{noop}123456")
                 //noop - dice que no es necesario
                 //encriptar la contraseña.
-                .roles("ADMIN","USER")
+                .roles("ADMIN","USER","GUESS")
                 .and()
                 .withUser("usuario")
                 .password("{noop}123456")
                 .roles("USER")
+                .and()
+                .withUser("invitado")
+                .password("{noop}123456")
+                .roles("GUESS")
                 ;
     }
     
@@ -56,12 +60,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                  */
                 .hasRole("ADMIN")
                 .antMatchers("/")
-                .hasAnyRole("USER","ADMIN")
+                .hasAnyRole("USER","ADMIN","GUESS")
                 .and()
                 .formLogin()
                         .loginPage("/login")
                 .and()
-                .exceptionHandling().accessDeniedPage("/errores/403")
+                //.exceptionHandling().accessDeniedPage("/errores/403")
+                .exceptionHandling().accessDeniedPage("/login")
                 ;
     }
  

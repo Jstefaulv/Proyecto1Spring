@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import cl.duoc.Proyecto1.domain.Persona;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+
 /**
  *
  * @author Johana
@@ -17,67 +21,84 @@ import cl.duoc.Proyecto1.domain.Persona;
 @Controller
 @Slf4j
 public class ControladorInicio { //trabaja con tecnología de Servlets
-    
+
     @Autowired //enlazando a controladorInicio
     //con personaService
     //para que trabajen en conjunto
     private PersonaService personaService;
-    
-    @GetMapping("/")
+
+    /* @GetMapping("/")
     public String inicio(Model modelo){
         var personas = personaService.listarPersonas();
         modelo.addAttribute("personas",personas);
          return "index";
+    }*/
+    
+    @GetMapping("/")
+    public String inicio(Model modelo, @AuthenticationPrincipal User user) {
+        String url = "";
+        String rol = user.getAuthorities().toString();
+        
+        if (rol.contains("ADMIN")) {
+            url = "/index";
+            var personas = personaService.listarPersonas();
+            modelo.addAttribute("personas", personas);
+        }else if(rol.contains("USER")){
+            url="/usuario";
+        }
+        else if(rol.contains("GUESS")){
+            url="/invitado";
+        }
+        return url;
     }
+
     /**
-     * Desde index, se presionará un link para 
-     * llevarnos a la pagina de modificar.html, 
-     * cuando presione el link en la url mostrará
-     * la palabra "agregar" en vez del nombre del archivo
+     * Desde index, se presionará un link para llevarnos a la pagina de
+     * modificar.html, cuando presione el link en la url mostrará la palabra
+     * "agregar" en vez del nombre del archivo
+     *
      * @param persona
-     * @return 
+     * @return
      */
     @GetMapping("/agregar")
-    public String agregar(Persona persona){
+    public String agregar(Persona persona) {
         return "modificar";
     }
+
     /**
-     * al presionar guardar en el formulario, 
-     * considerando que el boton debe ser un submit,
-     * enviará los datos a procesarse en personaService,
-     * para poder almacenar el objeto de persona.
+     * al presionar guardar en el formulario, considerando que el boton debe ser
+     * un submit, enviará los datos a procesarse en personaService, para poder
+     * almacenar el objeto de persona.
+     *
      * @param persona
-     * @return 
+     * @return
      */
     @PostMapping("/guardar")
-    public String guardar(Persona persona){
+    public String guardar(Persona persona) {
         personaService.guardar(persona);
         return "redirect:/";
     }
-    
+
     //editar
     /**
-     * Se crea un método que se llama Editar
-     * el editar lo que hace es:
-     * buscar al objeto de persona y añadirla al modelo.
-     * la consulta sql que hace por detrás de la
-     * codificación es un SELECT BY ID
-     * select nombre,apellido,email,telefono 
-     * from persona where id=?;(Esto lo hace el CrudRepository)
-     * cuando encuentra a la persona, entonces, la edita
-     * tomando su ID y luego lo envía a la vista dentro del
-     * modificar.html
+     * Se crea un método que se llama Editar el editar lo que hace es: buscar al
+     * objeto de persona y añadirla al modelo. la consulta sql que hace por
+     * detrás de la codificación es un SELECT BY ID select
+     * nombre,apellido,email,telefono from persona where id=?;(Esto lo hace el
+     * CrudRepository) cuando encuentra a la persona, entonces, la edita tomando
+     * su ID y luego lo envía a la vista dentro del modificar.html
      */
     @GetMapping("/editar/{idPersona}")
-    public String editar(Persona persona,Model modelo){
+    public String editar(Persona persona, Model modelo) {
         persona = personaService.encontrarPersona(persona);
-        modelo.addAttribute("persona",persona);
+        modelo.addAttribute("persona", persona);
         return "modificar";
     }
+
     //eliminar
     @GetMapping("/eliminar")
-    public String eliminar(Persona persona){
+    public String eliminar(Persona persona) {
         personaService.eliminar(persona);
         return "redirect:/";
-    } 
+    }
 }
