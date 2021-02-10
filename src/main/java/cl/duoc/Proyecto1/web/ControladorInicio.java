@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.User;
  *
  * @author Johana
  */
-
 @Controller
 @Slf4j
 public class ControladorInicio { //trabaja con tecnología de Servlets
@@ -33,21 +32,19 @@ public class ControladorInicio { //trabaja con tecnología de Servlets
         modelo.addAttribute("personas",personas);
          return "index";
     }*/
-    
     @GetMapping("/")
     public String inicio(Model modelo, @AuthenticationPrincipal User user) {
         String url = "";
         String rol = user.getAuthorities().toString();
-        
+
         if (rol.contains("ADMIN")) {
             url = "/index";
             var personas = personaService.listarPersonas();
             modelo.addAttribute("personas", personas);
-        }else if(rol.contains("USER")){
-            url="/usuario";
-        }
-        else if(rol.contains("GUESS")){
-            url="/invitado";
+        } else if (rol.contains("USER")) {
+            url = "/usuario";
+        } else if (rol.contains("GUESS")) {
+            url = "/invitado";
         }
         return url;
     }
